@@ -1,0 +1,27 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	0.0.0	//
+<Leader>a	pack/plugins/start/vim-spatab/autoload/mymy.vim	/^  map <unique> <Leader>a  <Plug>TypecorrAdd;$/;"	m
+<Plug>TypecorrAdd;	pack/plugins/start/vim-spatab/autoload/mymy.vim	/^noremap <unique> <script> <Plug>TypecorrAdd;  <SID>Add$/;"	m
+<SID>Add	pack/plugins/start/vim-spatab/autoload/mymy.vim	/^noremap <SID>Add  :call <SID>Add(expand("<cword>"), 2)<CR>$/;"	m
+Correct	pack/plugins/start/vim-spatab/autoload/mymy.vim	/^	command -nargs=1  Correct  :call s:Add(<q-args>, 0)$/;"	c
+config	lua/plugins.lua	/^		config = function() require("nvim-autopairs").setup {} end$/;"	f
+config	lua/plugins.lua	/^		config = function()$/;"	f
+disable	lua/treesitter_rc.lua	/^    disable = function(lang, buf)$/;"	f
+error_msg	plugin/packer_compiled.lua	/^local no_errors, error_msg = pcall(function()$/;"	f
+expand	lua/nvimcmp_rc.lua	/^      expand = function(args)$/;"	f
+g:loaded_typecorr	pack/plugins/start/vim-spatab/autoload/mymy.vim	/^let g:loaded_typecorr = 1$/;"	v
+on_attach	lua/lspKeymap.lua	/^local on_attach = function(client, bufnr)$/;"	f
+s:Add	pack/plugins/start/vim-spatab/autoload/mymy.vim	/^function s:Add(from, correct)$/;"	f
+s:count	pack/plugins/start/vim-spatab/autoload/mymy.vim	/^let s:count = 4$/;"	v
+s:init_fern	init.lua	/^	function! s:init_fern() abort$/;"	f
+s:save_cpo	pack/plugins/start/vim-spatab/autoload/mymy.vim	/^let s:save_cpo = &cpo$/;"	v
+s:sudo_write_buffer	init.lua	/^function! s:sudo_write_buffer() abort$/;"	f
+save_profiles	plugin/packer_compiled.lua	/^local function save_profiles(threshold)$/;"	f
+time	plugin/packer_compiled.lua	/^  time = function(chunk, start) end$/;"	f
+time	plugin/packer_compiled.lua	/^  time = function(chunk, start)$/;"	f
+try_loadstring	plugin/packer_compiled.lua	/^local function try_loadstring(s, component, name)$/;"	f
