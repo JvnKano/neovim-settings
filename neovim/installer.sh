@@ -7,7 +7,7 @@ if [ ! -f nvim-linux64.tar.gz ] ; then
 fi
 
 if [ ! -f nvim-linux64 ] ; then
-   tar xzvf nvim-linux64.tar.gz
+   tar xzf nvim-linux64.tar.gz
 fi
 
 if [ -d /usr/share/nvim ] ; then
@@ -22,8 +22,13 @@ fi
 
 sudo cp -r ./nvim-linux64/lib/nvim /usr/lib/
 
+if [ -d /usr/bin/nvim ] ; then
+   sudo rm -r /usr/bin/nvim -f
+fi
+sudo cp  ./nvim-linux64/bin/nvim /usr/bin/
 
 
-rm -r ./nvim-linux64.tar.gz -f
-rm -r ./nvim-linux64 -f
+
+#rm -r ./nvim-linux64.tar.gz -f
+#rm -r ./nvim-linux64 -f
 
