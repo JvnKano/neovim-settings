@@ -10,6 +10,8 @@ require("treesitter_rc")
 require("marks_rc")
 require("flutter_rc")
 require("sudowrite")
+require("aerial_rc")
+
 require("tokyonight").setup({
    transparent = false,
    styles = {
@@ -18,6 +20,4 @@ require("tokyonight").setup({
    },
 })
 
-
 vim.cmd("colorscheme tokyonight-night")
-
