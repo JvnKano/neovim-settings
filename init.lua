@@ -11,7 +11,8 @@ require("marks_rc")
 require("flutter_rc")
 require("sudowrite")
 require("aerial_rc")
-
+require("neorg_rc")
+require("gitsigns_rc")
 require("tokyonight").setup({
    transparent = false,
    styles = {
@@ -19,5 +20,19 @@ require("tokyonight").setup({
       floats = "transparent",
    },
 })
+
+vim.cmd [[
+augroup InitLua
+au!
+au BufWritePost ~/.config/nvim/init.lua bufdo source ~/.config/nvim/init.lua
+augroup END
+]]
+
+vim.cmd [[
+augroup LuaFile
+au!
+au BufEnter *.lua lua vim.keymap.set("n", "<leader>e", "<cmd>w<cr><cmd>so %<cr>",{buffer = true})
+augroup END
+]]
 
 vim.cmd("colorscheme tokyonight-night")
