@@ -17,10 +17,12 @@ vim.opt.hlsearch = false
 vim.opt.incsearch = true
 vim.opt.expandtab = true
 vim.opt.conceallevel = 2
-
 vim.opt.termguicolors = true
 vim.opt.winblend = 0
 vim.opt.pumblend = 0
+
 vim.opt.clipboard:append("unnamed")
 vim.opt.clipboard:append("unnamedplus")
 
+vim.wo.foldlevel = 99
+vim.wo.conceallevel = 2
