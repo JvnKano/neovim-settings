@@ -16,14 +16,16 @@ end
 
 map("n", "<leader>w", ":w<cr>", { noremap = true, silent = true });
 --
-map("n", "<c-p>", ":bp<cr>", options)
-map("n", "<c-n>", ":bn<cr>", options)
+map("n", "<c-p>", "<cmd>lua require('harpoon.ui').nav_prev()<cr>", options)
+map("n", "<c-n>", "<cmd>lua require('harpoon.ui').nav_next()<cr>", options)
 --map("n", "R", ":FlutterReload<cr>", options)
 map("n", "<F5>", ":lua HlsearchOnOff()<cr>", options)
---map("n", "<c-n>", "<cmd>cn<cr>", options)
---map("n", "<c-p>", "<cmd>cp<cr>", options)
+map("n", "]q", "<cmd>cn<cr>", options)
+map("n", "[q", "<cmd>cp<cr>", options)
 map("", "<leader>\\", "<cmd>lua require'hop'.hint_words()<cr>", options)
 map("n", "<leader>e", "<cmd>w<CR><cmd>make<CR>", options);
+map("n", "<leader>ha", "<cmd>lua require('harpoon.mark').add_file()<cr>", options);
+map("n", "<leader>he", "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>", options);
 
 --map("n", "<leader>w", ":w<cr>", options);
 
