@@ -14,8 +14,6 @@ if [ -d /usr/share/nvim ] ; then
    sudo rm -r /usr/share/nvim -f
 fi
 sudo cp -r ./nvim-linux64/share/nvim /usr/share
-
-
 if [ -d /usr/share/nvim ] ; then
    sudo rm -r /usr/lib/nvim -f
 fi
@@ -29,6 +27,6 @@ sudo cp  ./nvim-linux64/bin/nvim /usr/bin/
 
 
 
-#rm -r ./nvim-linux64.tar.gz -f
-#rm -r ./nvim-linux64 -f
+rm -r ./nvim-linux64.tar.gz -f
+rm -r ./nvim-linux64 -f
 

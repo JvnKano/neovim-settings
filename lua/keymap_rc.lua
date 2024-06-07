@@ -3,9 +3,8 @@
 
 local map = vim.keymap.set
 local options = { noremap = true, silent = true }
-
 function HlsearchOnOff()
-   local hl = vim.api.nvim_get_option("hlsearch")
+   local hl = vim.api.nvim_get_option_value(("hlsearch"), {})
    if hl then
       vim.opt.hlsearch = false
    else
@@ -13,13 +12,16 @@ function HlsearchOnOff()
    end
 end
 
+map("n", "<c-h>", ":diffget<cr>", { noremap = true, silent = true });
+map("n", "<c-l>", ":diffput<cr>", { noremap = true, silent = true });
 
 map("n", "<leader>w", ":w<cr>", { noremap = true, silent = true });
---
+map("n", "<c-z>", "<NOP>", options)
 map("n", "<c-p>", "<cmd>lua require('harpoon.ui').nav_prev()<cr>", options)
 map("n", "<c-n>", "<cmd>lua require('harpoon.ui').nav_next()<cr>", options)
+map({"c", "i"}, "<c-r><c-r>", "\"", {noremap = true})
 --map("n", "R", ":FlutterReload<cr>", options)
-map("n", "<F5>", ":lua HlsearchOnOff()<cr>", options)
+map("n", "<a-5>", ":lua HlsearchOnOff()<cr>", options)
 map("n", "]q", "<cmd>cn<cr>", options)
 map("n", "[q", "<cmd>cp<cr>", options)
 map("", "<leader>\\", "<cmd>lua require'hop'.hint_words()<cr>", options)
@@ -31,7 +33,7 @@ map("n", "<leader>he", "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>",
 
 map("n", "<leader>m", "<cmd>mkview<CR>", options);
 map("n", "<leader>l", "<cmd>loadview<CR>", options);
-map("n", "*", "*N", options);
+map("n", "*", "<cmd>let @/='\\<'.expand('<cword>').'\\>'<cr>", options);
 --map("n", "<c-s>", "<cmd>Fern . -drawer -toggle<CR>", options);
 map("x", "<leader>p", "\"_dP", options);
 --map("n", "<c-s>", "<cmd>Fern %:h -drawer -toggle<CR>", options);
