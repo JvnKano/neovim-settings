@@ -13,6 +13,17 @@ function HlsearchOnOff()
    end
 end
 
+function CopenOnOff()
+   local vf = vim.fn
+   local q_flag = vf.filter(vf.getwininfo(), 'v:val.quickfix')
+
+   if (vf.empty(q_flag) == 1) then
+      vim.cmd"copen"
+   else
+      vim.cmd"cclose"
+   end
+
+end
 
 
 function Diffkeymap()
