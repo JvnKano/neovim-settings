@@ -37,7 +37,10 @@ end
 local config = {
    virtual_text = false
 }
-
+local clangdsetup = function(client, bufnr)
+   on_attach(client, bufnr)
+   require "lsp_signature".on_attach(signature_setup, bufnr)
+end
 vim.diagnostic.config(config);
 
 local lsp_flags = {
@@ -45,11 +48,26 @@ local lsp_flags = {
    debounce_text_changes = 150,
 }
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
+--local capa = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.foldingRange = {
+   dynamicRegistration = true,
+   lineFoldingOnly = true
+}
 
 require('lspconfig')['clangd'].setup{
-   on_attach = on_attach,
+   on_attach = clangdsetup,
    flags = lsp_flags,
-   capabilities = capabilities
+   cmd = {"clangd"},
+   capabilities = capabilities,
+   root_ir = require('lspconfig').util.root_pattern(
+   '.clangd',
+   '.clang-tidy',
+   '.clang-format',
+   'compile_commands.json',
+   'compile_flags.txt',
+   'configure.ac',
+   '.git'
+   ),
 }
 
 require('lspconfig')["lua_ls"].setup {

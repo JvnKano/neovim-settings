@@ -21,7 +21,7 @@ else
    endif
    endfunction
 
-   command! SudoWirte call s:sudo_write_buffer()
+   command! SudoWrite call s:sudo_write_buffer()
 
    ]]
    local ls  = require("luasnip")

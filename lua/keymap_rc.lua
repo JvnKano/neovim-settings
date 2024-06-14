@@ -3,6 +3,7 @@
 
 local map = vim.keymap.set
 local options = { noremap = true, silent = true }
+
 function HlsearchOnOff()
    local hl = vim.api.nvim_get_option_value(("hlsearch"), {})
    if hl then
@@ -12,8 +13,30 @@ function HlsearchOnOff()
    end
 end
 
-map("n", "<c-h>", ":diffget<cr>", { noremap = true, silent = true });
-map("n", "<c-l>", ":diffput<cr>", { noremap = true, silent = true });
+
+
+function Diffkeymap()
+   local flag = vim.api.nvim_get_option_value(("diff"), {})
+   if flag then
+      map("n", "<c-h>", ":diffget<cr>", { noremap = true, silent = true, buffer = true });
+      map("n", "<c-l>", ":diffput<cr>", { noremap = true, silent = true, buffer = true });
+   else
+      map("n", "<c-h>", "<BS>", { noremap = true, silent = true, buffer = true });
+      map("n", "<c-l>", "<Cmd>nohlsearch|diffupdate|normal! <C-L><CR>", { noremap = true, silent = true, buffer = true });
+   end
+end
+
+vim.cmd[[
+
+augroup DiffAuto
+au!
+au OptionSet diff lua Diffkeymap()
+augroup END
+
+]]
+--map("n", "<c-h>", ":diffget<cr>", { noremap = true, silent = true });
+--map("n", "<c-l>", ":diffput<cr>", { noremap = true, silent = true });
+--
 
 map("n", "<leader>w", ":w<cr>", { noremap = true, silent = true });
 map("n", "<c-z>", "<NOP>", options)
@@ -35,9 +58,7 @@ map("n", "<leader>m", "<cmd>mkview<CR>", options);
 map("n", "<leader>l", "<cmd>loadview<CR>", options);
 map("n", "*", "<cmd>let @/='\\<'.expand('<cword>').'\\>'<cr>", options);
 --map("n", "<c-s>", "<cmd>Fern . -drawer -toggle<CR>", options);
-map("x", "<leader>p", "\"_dP", options);
---map("n", "<c-s>", "<cmd>Fern %:h -drawer -toggle<CR>", options);
---map("n", "<F7>", "<cmd>DapToggleRepl<CR>", options);
+map("x", "<leader>p", "\"_dP", options); --map("n", "<c-s>", "<cmd>Fern %:h -drawer -toggle<CR>", options); map("n", "<F7>", "<cmd>DapToggleRepl<CR>", options);
 --map("n", "<F8>", "<cmd>DapContinue<CR>", options);
 --map("n", "<F9>", "<cmd>DapStepOver<CR>", options);
 --map("v","<M-k>","<Cmd>lua require('dapui').eval()<CR>", {})

@@ -10,18 +10,20 @@ require("treesitter_rc")
 require("marks_rc")
 require("flutter_rc")
 require("sudowrite")
+require("treesitter_context_rc")
 require("aerial_rc")
 require("neorg_rc")
 require("gitsigns_rc")
+require("lsp_signature_rc")
+require("oil_rc")
+require("treesj_rc")
+require("ufo").setup()
+require("nvim_ufo_rc")
 require("tokyonight").setup({
    transparent = false,
-   styles = {
-      sidebars = "transparent",
+   styles = { sidebars = "transparent",
       floats = "transparent",
-   },
-})
-
-vim.cmd [[
+   }, }) vim.cmd [[
 augroup InitLua
 au!
 au BufWritePost ~/.config/nvim/init.lua bufdo source ~/.config/nvim/init.lua
