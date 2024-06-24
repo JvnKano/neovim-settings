@@ -20,9 +20,9 @@ require("oil_rc")
 require("treesj_rc")
 require("ufo").setup()
 require("nvim_ufo_rc")
---require("lualine_rc")
---require("pomo_rc")
---require('overseer').setup()
+require("lualine_rc")
+require("pomo_rc")
+require('overseer').setup()
 require("tokyonight").setup({
    transparent = false,
    styles =
