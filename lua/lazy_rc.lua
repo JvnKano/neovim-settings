@@ -47,7 +47,28 @@ require("lazy").setup({
    },
 
    "machakann/vim-sandwich",
-   "windwp/nvim-ts-autotag",
+   {
+      "windwp/nvim-ts-autotag",
+      config = function ()
+         require('nvim-ts-autotag').setup({
+            opts = {
+               -- Defaults
+               enable_close = true, -- Auto close tags
+               enable_rename = true, -- Auto rename pairs of tags
+               enable_close_on_slash = false -- Auto close on trailing </
+            },
+            -- Also override individual filetype configs, these take priority.
+            -- Empty by default, useful if one of the "opts" global settings
+            -- doesn't work well in a specific filetype
+            -- per_filetype = {
+            --    ["html"] = {
+            --       enable_close = false
+            --    }
+            -- }
+         })
+
+      end
+   },
    "nvim-treesitter/nvim-treesitter",
    {
       "folke/tokyonight.nvim",
@@ -177,7 +198,7 @@ require("lazy").setup({
       },
    },
    {
-     "nvim-treesitter/nvim-treesitter-context"
+      "nvim-treesitter/nvim-treesitter-context"
    },
    {'kevinhwang91/nvim-bqf'},
    {
@@ -251,5 +272,181 @@ require("lazy").setup({
             desc = "Quickfix List (Trouble)",
          },
       },
-   }
+   },
+   {
+      'nvimdev/lspsaga.nvim',
+      config = function()
+         require('lspsaga').setup({})
+      end,
+      dependencies = {
+         'nvim-treesitter/nvim-treesitter', -- optional
+         'nvim-tree/nvim-web-devicons',     -- optional
+      },
+   },
+   {
+      "monaqa/dial.nvim",
+      config = function()
+         local augend = require("dial.augend")
+         require("dial.config").augends:register_group{
+            -- default augends used when no group name is specified
+            default = {
+               augend.integer.alias.decimal,   -- nonnegative decimal number (0, 1, 2, 3, ...)
+               augend.integer.alias.hex,       -- nonnegative hex number  (0x01, 0x1a1f, etc.)
+               augend.date.alias["%Y/%m/%d"],  -- date (2022/02/19, etc.)
+            },
+         }
+      end,
+      -- keys = {
+      --    {
+      --       vim.keymap.set( "n", "<C-a>", function()
+      --          require("dial.map").manipulate("increment", "normal")
+      --       end)
+      --    },
+      --    {
+      --       vim.keymap.set("n", "<C-x>", function()
+      --          require("dial.map").manipulate("decrement", "normal")
+      --       end)
+      --    },
+      -- }
+
+   },
+   {
+      "shellRaining/hlchunk.nvim",
+      event = { "BufReadPre", "BufNewFile" },
+      config = function()
+         require("hlchunk").setup(
+         {
+            chunk = {
+               enable = false,
+               style = {},
+               notify = false,
+               priority = 0,
+               exclude_filetypes = {
+                  aerial = true,
+                  dashboard = true,
+                  -- some other filetypes
+               }
+
+            },
+         }
+         )
+      end
+   },
+   {
+      "RRethy/nvim-treesitter-textsubjects"
+   },
+   {
+      'stevearc/overseer.nvim',
+      opts = {},
+   },
+   {
+      "kazhala/close-buffers.nvim",
+      config = function()
+         require('close_buffers').setup({
+            preserve_window_layout = { 'this' },
+            next_buffer_cmd = function(windows)
+               require('bufferline').cycle(1)
+               local bufnr = vim.api.nvim_get_current_buf()
+
+               for _, window in ipairs(windows) do
+                  vim.api.nvim_win_set_buf(window, bufnr)
+               end
+            end,
+         })
+      end,
+      keys = {
+         {
+            "<leader>th",
+            mode = {"n"},
+            "<CMD>lua require('close_buffers').delete({type = 'hidden'})<CR>",
+            { noremap = true, silent = true }, desc = "close_buffers_hidden"
+         },
+         {
+            "<leader>tu",
+            mode = {"n"},
+            "<CMD>lua require('close_buffers').delete({type = 'nameless'})<CR>", { noremap = true, silent = true }, desc = "close_buffers_nameless" }, {
+            "<leader>tc",
+            mode = {"n"},
+            "<CMD>lua require('close_buffers').delete({type = 'this'})<CR>",
+            { noremap = true, silent = true }, desc = "close_buffers_this"
+         },
+      }
+
+   },
+   {
+      'nvim-lualine/lualine.nvim',
+      dependencies = { 'nvim-tree/nvim-web-devicons' }
+   },
+   {
+      "epwalsh/pomo.nvim",
+      version = "*",  -- Recommended, use latest release instead of latest commit
+      lazy = true,
+      cmd = { "TimerStart", "TimerRepeat" },
+      dependencies = {
+         -- Optional, but highly recommended if you want to use the "Default" timer
+         "rcarriga/nvim-notify",
+      },
+      opts = {
+         -- See below for full list of options 👇
+      },
+   },
+   {
+      'romgrk/barbar.nvim',
+      dependencies = {
+         'lewis6991/gitsigns.nvim', -- OPTIONAL: for git status
+         'nvim-tree/nvim-web-devicons', -- OPTIONAL: for file icons },
+         init = function() vim.g.barbar_auto_setup = false end,
+         opts = {
+            -- lazy.nvim will automatically call setup for you. put your options here, anything missing will use the default:
+            -- animation = true,
+            -- …etc.
+         },
+         version = '^1.0.0', -- optional: only update when a new 1.x version is released
+      },
+      keys = {
+         -- Move to previous/next
+         {'<A-,>', mode = {'n'}, '<Cmd>BufferPrevious<CR>', {noremap = true, silent = true}},
+         {'<A-.>', mode = {'n'}, '<Cmd>BufferNext<CR>', {noremap = true, silent = true}},
+         -- Re-order to previous/next
+         {'<A-<>', mode = {'n'}, '<Cmd>BufferMovePrevious<CR>', {noremap = true, silent = true}},
+         {'<A->>', mode = {'n'}, '<Cmd>BufferMoveNext<CR>', {noremap = true, silent = true}},
+         -- Goto buffer in position...
+         {'<A-1>', mode = {'n'}, '<Cmd>BufferGoto 1<CR>', {noremap = true, silent = true}},
+         {'<A-2>', mode = {'n'}, '<Cmd>BufferGoto 2<CR>', {noremap = true, silent = true}},
+         {'<A-3>', mode = {'n'}, '<Cmd>BufferGoto 3<CR>', {noremap = true, silent = true}},
+         {'<A-4>', mode = {'n'}, '<Cmd>BufferGoto 4<CR>', {noremap = true, silent = true}},
+         --{'<A-5>', mode = {'n'}, '<Cmd>BufferGoto 5<CR>', {noremap = true, silent = true}},
+         {'<A-6>', mode = {'n'}, '<Cmd>BufferGoto 6<CR>', {noremap = true, silent = true}},
+         {'<A-7>', mode = {'n'}, '<Cmd>BufferGoto 7<CR>', {noremap = true, silent = true}},
+         {'<A-8>', mode = {'n'}, '<Cmd>BufferGoto 8<CR>', {noremap = true, silent = true}},
+         {'<A-9>', mode = {'n'}, '<Cmd>BufferGoto 9<CR>', {noremap = true, silent = true}},
+         {'<A-0>', mode = {'n'}, '<Cmd>BufferLast<CR>', {noremap = true, silent = true}},
+         -- Pin/unpin buffer
+         {'<A-p>', mode = {'n'}, '<Cmd>BufferPin<CR>', {noremap = true, silent = true}},
+         -- Close buffer
+         {'<A-c>', mode = {'n'}, '<Cmd>BufferClose<CR>', {noremap = true, silent = true}},
+         -- Wipeout buffer
+         --                 :BufferWipeout
+         -- Close commands
+         --                 :BufferCloseAllButCurrent
+         --                 :BufferCloseAllButPinned
+         --                 :BufferCloseAllButCurrentOrPinned
+         --                 :BufferCloseBuffersLeft
+         --                 :BufferCloseBuffersRight
+         -- Magic buffer-picking mode
+         {'<leader>q', mode = {'n'}, '<Cmd>BufferPick<CR>', {noremap = true, silent = true}},
+         -- Sort automatically by...
+         {'<Space>bb', mode = {'n'}, '<Cmd>BufferOrderByBufferNumber<CR>', {noremap = true, silent = true}},
+         {'<Space>bn', mode = {'n'}, '<Cmd>BufferOrderByName<CR>', {noremap = true, silent = true}},
+         {'<Space>bd', mode = {'n'}, '<Cmd>BufferOrderByDirectory<CR>', {noremap = true, silent = true}},
+         {'<Space>bl', mode = {'n'}, '<Cmd>BufferOrderByLanguage<CR>', {noremap = true, silent = true}},
+         {'<Space>bw', mode = {'n'}, '<Cmd>BufferOrderByWindowNumber<CR>', {noremap = true, silent = true}},
+
+         -- Other:
+         -- :BarbarEnable - enables barbar (enabled by default)
+         -- :BarbarDisable - very bad command, should never be used
+      },
+      lazy = false,
+   },
+
 })

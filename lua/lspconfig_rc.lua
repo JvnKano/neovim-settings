@@ -194,20 +194,14 @@ require('lspconfig')['vimls'].setup{
 require('lspconfig')['bashls'].setup{
    on_attach = on_attach,
    capabilities = capabilities,
-   --	  on_attach = on_attach,
-   --     flags = lsp_flags,
-   --     cmd = { "pyright-langserver", "--stdio" },
-   --     filetypes = { "python" },
-   --     settings = {
-   --        python = {
-   --           analysis = {
-   --              autoSearchPaths = true,
-   --              diagnosticMode = "workspace",
-   --              useLibraryCodeForTypes = true
-   --           }
-   --        }
-   --     },
-   --     single_file_support = true,
+   filetypes = {"sh"},
+   root_dir = require("lspconfig").util.find_git_ancestor,
+   settings = {
+      bashIde = {
+         globPattern = "*@(.sh|.inc|.bash|.command)"
+      }
+   },
+   single_file_support = true,
 }
 
 -- for cursor autocmd

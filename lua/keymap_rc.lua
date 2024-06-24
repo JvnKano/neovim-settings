@@ -49,10 +49,11 @@ augroup END
 --map("n", "<c-l>", ":diffput<cr>", { noremap = true, silent = true });
 --
 
-map("n", "<leader>w", ":w<cr>", { noremap = true, silent = true });
+--map("n", "<leader>w", ":w<cr>", { noremap = true, silent = true });
+map("n", "<leader>ww", ":WhichKey<cr>", { noremap = true, silent = false });
 map("n", "<c-z>", "<NOP>", options)
-map("n", "<c-p>", "<cmd>lua require('harpoon.ui').nav_prev()<cr>", options)
-map("n", "<c-n>", "<cmd>lua require('harpoon.ui').nav_next()<cr>", options)
+map("n", "[f", "<cmd>lua require('harpoon.ui').nav_prev()<cr>", options)
+map("n", "]f", "<cmd>lua require('harpoon.ui').nav_next()<cr>", options)
 map({"c", "i"}, "<c-r><c-r>", "\"", {noremap = true})
 --map("n", "R", ":FlutterReload<cr>", options)
 map("n", "<a-q>", ":lua CopenOnOff()<cr>", options)
