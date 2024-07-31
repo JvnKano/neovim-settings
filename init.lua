@@ -46,3 +46,7 @@ augroup END
 ]]
 
 vim.cmd("colorscheme tokyonight-night")
+
+vim.cmd[[
+  autocmd BufNewFile makefile 0r ~/.skelton/skeleton_makefile
+]]

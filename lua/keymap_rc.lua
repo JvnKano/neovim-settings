@@ -5,8 +5,7 @@ local map = vim.keymap.set
 local options = { noremap = true, silent = true }
 
 function HlsearchOnOff()
-   local hl = vim.api.nvim_get_option_value(("hlsearch"), {})
-   if hl then
+   local hl = vim.api.nvim_get_option_value(("hlsearch"), {}) if hl then
       vim.opt.hlsearch = false
    else
       vim.opt.hlsearch = true
@@ -71,12 +70,42 @@ map("n", "<leader>he", "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>",
 
 --map("n", "<leader>w", ":w<cr>", options);
 
+--map("i", "<c-f>", function() return Myfunc() end, options);
 map("n", "<leader>m", "<cmd>mkview<CR>", options);
 map("n", "<leader>l", "<cmd>loadview<CR>", options);
 map("n", "*", "<cmd>let @/='\\<'.expand('<cword>').'\\>'<cr>", options);
 --map("n", "<c-s>", "<cmd>Fern . -drawer -toggle<CR>", options);
 map("x", "<leader>p", "\"_dP", options); --map("n", "<c-s>", "<cmd>Fern %:h -drawer -toggle<CR>", options); map("n", "<F7>", "<cmd>DapToggleRepl<CR>", options);
+map("x", ".", "\"_dPgn", options);
+map("x", ">", ">gv", options);
+map("x", "<", "<gv", options);
 
---map("n", "<F8>", "<cmd>DapContinue<CR>", options);
+--map("x", "K", ":move'<-2<CR>gv=gv", options);
+--map("x", "J", ":move'>+1<CR>gv=gv", options); map("n", "<c-s>", "<cmd>Fern %:h -drawer -toggle<CR>", options); map("n", "<F7>", "<cmd>DapToggleRepl<CR>", options); map("n", "<F8>", "<cmd>DapContinue<CR>", options);
 --map("n", "<F9>", "<cmd>DapStepOver<CR>", options);
 --map("v","<M-k>","<Cmd>lua require('dapui').eval()<CR>", {})
+--
+--
+--
+
+function Myfunc()
+   local closers = {")", "}", "\"" }
+   local line = vim.api.nvim_get_current_line()
+   local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+   local after = line:sub(col + 1, -1)
+   local closer_col = #after + 1
+   local closer_i = nil
+
+   for i, closer in ipairs(closers) do
+      local cur_index, _ = after:find(closer)
+      if cur_index and (cur_index < closer_col) then
+         closer_col = cur_index
+         closer_i = i
+      end
+   end
+   if closer_i then
+      vim.api.nvim_win_set_cursor(0, {row, col + closer_col})
+   else
+      vim.api.nvim_win_set_cursor(0, {row, col + 1})
+   end
+end
