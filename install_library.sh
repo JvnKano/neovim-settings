@@ -6,3 +6,4 @@ sudo apt -y install ripgrep
 sudo apt -y install make
 sudo apt -y install gcc
 sudo apt -y install g++
+sudo apt -y install npm 
