@@ -1,5 +1,5 @@
 #!/bin/bash
-
+sudo apt install neovim -y
 
 if [ ! -f nvim-linux64.tar.gz ] ; then
    wget "https://github.com/neovim/neovim/releases/download/stable/nvim-linux64.tar.gz"
