@@ -11,7 +11,7 @@ if !(unzip ./DejaVuSansMono.zip > /dev/null 2>&1); then
 fi
 
 cp *.ttf ~/.fonts
-
+fc-cashe -fv
 
 
 
